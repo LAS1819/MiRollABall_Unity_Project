@@ -121,5 +121,15 @@ public class PlayerController : MonoBehaviour {
 				transform.localScale = new Vector3(playerScale.x - 0.1f, playerScale.y - 0.1f, playerScale.z - 0.1f);	
 			}
 		}
+
+		// Si la colisión de produce en las pareder Este u Oeste
+		if (collision.gameObject.CompareTag("ParedEste") || collision.gameObject.CompareTag("ParedOeste")) {
+			// Aumentamos el tamaño del jugador
+			playerScale = transform.localScale;
+			if (playerScale.x < 2) {
+				// Aumentamos la escala de la bola en 0.1 en todos sus vectores
+				transform.localScale = new Vector3(playerScale.x + 0.1f, playerScale.y + 0.1f, playerScale.z + 0.1f);
+			}
+		}
 	}
 }
