@@ -23,13 +23,16 @@ public class PlayerController : MonoBehaviour {
 	// Miembro tipo Rederer para acceder al color del material
 	private Renderer r;
 
+	// Variable privada para guardar escala del player
+	private Vector3 playerScale;
+
 	// At the start of the game..
 	void Start ()
 	{
 		// Assign the Rigidbody component to our private rb variable
 		rb = GetComponent<Rigidbody>();
 
-		// Obtenemos el componente Rederer y asignamos a variable privada 'r'
+		// Obtenemos el componente Renderer y asignamos a variable privada 'r'
 		r = GetComponent<Renderer>();
 
 		// Set the count to zero 
@@ -99,11 +102,24 @@ public class PlayerController : MonoBehaviour {
 
 	// Método para detectar las colisiones en las paredes
 	private void OnCollisionEnter(Collision collision) {
-		// Si la colisión se produce contra una pared
-		if (collision.gameObject.CompareTag("Pared")) {
+		// Si la colisión se produce contra cualquiera de las paredes
+		if (collision.gameObject.CompareTag("ParedNorte") || collision.gameObject.CompareTag("ParedEste") ||
+			collision.gameObject.CompareTag("ParedSur") || collision.gameObject.CompareTag("ParedOeste")) {
 			// Cambiamos el color de la bola a uno aleatorio
 			//r.material.color = new Color(Random.value, Random.value, Random.value);
 			r.material.color = new Color(Mathf.Round(Random.value), Mathf.Round(Random.value), Mathf.Round(Random.value));
+		}
+
+		// Si la colisión se produce en la pared Norte o Sur
+		if (collision.gameObject.CompareTag("ParedNorte") || collision.gameObject.CompareTag("ParedSur")) {
+			// Reducimos tamaño del jugador
+			// Primero obtenemos la escala actual del objeto Bola mediante 'localScale'
+			playerScale = transform.localScale;
+			// Como reducimos todos sus vectores por igual, antes comprobamos que la bola sea mayor a 1
+			if (playerScale.x > 0.2f) {
+				// Reducimos la escala de la bola 0.1 en todos sus vectores
+				transform.localScale = new Vector3(playerScale.x - 0.1f, playerScale.y - 0.1f, playerScale.z - 0.1f);	
+			}
 		}
 	}
 }

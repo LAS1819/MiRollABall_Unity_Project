@@ -9,8 +9,6 @@ LISTA DE TAREAS PARA REALIZAR
 ---------------
 	-TAREAS PRÁCTICA-
 	
-	-> [] - Reducir tamaño del player cada vez que colisionamos con las paredes Norte y Sur
-	-> [] - Aumentar de tamaño el player cada vez que colisionamos con paredes Este y Oeste
 	-> [] - Reducir la altura de la pared cada vez que colisionemos con ella.
 	-> [] - Aumentar de tamaño del Player cuando recoja PickUps.
 	-> [] - Hacer que los Pick-Ups giren cada uno de manera aleatoria y diferente entre ellos
@@ -31,7 +29,8 @@ LISTA DE TAREAS PARA REALIZAR
 -> REALIZANDO <-
 ----------------
 	-TAREAS PRÁCTICA-
-
+	-> [X] - Reducir tamaño del player cada vez que colisionamos con las paredes Norte y Sur
+	-> [] - Aumentar de tamaño el player cada vez que colisionamos con paredes Este y Oeste
 	
 
 	-TAREAS PERSONALES-
