@@ -90,6 +90,17 @@ public class PlayerController : MonoBehaviour {
 
 			// Run the 'SetCountText()' function (see below)
 			SetCountText ();
+
+			// Obtenemos la escala del jugador
+			playerScale = transform.localScale;
+
+			// Si la escala es menor a 2
+			if (playerScale.x < 2) {
+				// Aumentamos la escala de la bola en 0.1 en todos sus vectores
+				transform.localScale = new Vector3(playerScale.x + 0.1f, playerScale.y + 0.1f, playerScale.z + 0.1f);
+			}
+
+
 		}
 	}
 
@@ -110,8 +121,7 @@ public class PlayerController : MonoBehaviour {
 	// Método para detectar las colisiones en las paredes
 	private void OnCollisionEnter(Collision collision) {
 		// Si la colisión se produce contra cualquiera de las paredes
-		if (collision.gameObject.CompareTag("ParedNorte") || collision.gameObject.CompareTag("ParedEste") ||
-			collision.gameObject.CompareTag("ParedSur") || collision.gameObject.CompareTag("ParedOeste")) {
+		if (collision.gameObject.CompareTag("Pared")) {
 			// Cambiamos el color de la bola a uno aleatorio
 			//r.material.color = new Color(Random.value, Random.value, Random.value);
 			r.material.color = new Color(Mathf.Round(Random.value), Mathf.Round(Random.value), Mathf.Round(Random.value));
