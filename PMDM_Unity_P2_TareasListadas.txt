@@ -8,11 +8,6 @@ LISTA DE TAREAS PARA REALIZAR
 -> POR HACER <-
 ---------------
 	-TAREAS PRÁCTICA-
-	
-		
-		-> [] - Hacer que los Pick-Ups cambien de color aleatoriamente cada cierto tiempo.
-		-> [] - Activar un sistema de partículas (tipo explosión) al chocar con la pared o al recoger pickups
-			--> Explosiones distintas
 		-> [] - Añadir cosas que se nos ocurran
 		-> [] - Realizar comentarios en el código (nombre en parte superior de cada script también)
 
@@ -26,8 +21,8 @@ LISTA DE TAREAS PARA REALIZAR
 -> REALIZANDO <-
 ----------------
 	-TAREAS PRÁCTICA-
-
-		
+		-> [] - Activar un sistema de partículas (tipo explosión) al chocar con la pared o al recoger pickups
+			--> Explosiones distintas
 
 	-TAREAS PERSONALES-
 
@@ -43,6 +38,7 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [X] - Aumentar de tamaño del Player cuando recoja PickUps.
 		-> [X] - Hacer que los Pick-Ups giren cada uno de manera aleatoria y diferente entre ellos
 			--> El giro se mantendrá constante durante toda la partida
+		-> [X] - Hacer que los Pick-Ups cambien de color aleatoriamente cada cierto tiempo.
 
 	-TAREAS PERSONALES-
 
