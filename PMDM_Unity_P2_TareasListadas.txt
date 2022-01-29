@@ -17,13 +17,21 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [] - Dar impulsos a algunas de las paredes repartidas por el escenario
 		-> [] - Dar movimiento al foco de luz para que simule el movimiento del sol. Habría un momento en que fuera de noche y la luz sería ténue (crear otro foco de luz ténue para la luna)
 		-> [] - Hacer que los PickUp tengan luz propia.
+		-> [] - Terminar el juego cuando caiga por el precipicio (Cuando esté con valor negativo en eje Y)
+
 		
 		
 ----------------------------------------------------------------
 ----------------
 -> REALIZANDO <-
 ----------------
-	
+		-> [] - Añadir sondios básicos al juego
+			# [X] - Al recoger Pick Ups
+			# [X] - Música de fondo
+			# [] - Sonidos al colisionar contra las paredes
+			# [] - Música al terminar el juego al recoger los 12 pick ups
+			# [] - Música al caer por el precipicio (al aparecer la pantalla de juego terminado)
+			# [X] - Sonido al saltar
 
 	-TAREAS PERSONALES-
 ----------------------------------------------------------------

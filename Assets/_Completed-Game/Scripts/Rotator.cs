@@ -77,7 +77,7 @@ public class Rotator : MonoBehaviour {
 		yield return new WaitForSeconds(pausaCambioColor);
 
 		// DEBUG
-		Debug.Log(gameObject.name + " cambiaría de color...");
+		//Debug.Log(gameObject.name + " cambiaría de color...");
 		// FIN DEBUG
 
 		// Cambiamos color por otro aleatorio

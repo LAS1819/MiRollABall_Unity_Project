@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour {
 
 
 	// DEBUG
+	// Variable para obtener el componente de sonido
+	private AudioSource playerAudio;
+
+	public AudioClip jumpAudio;
+	public AudioClip pickUpAudio;
 	// FIN DEBUG
 	
 
@@ -57,6 +62,11 @@ public class PlayerController : MonoBehaviour {
 
 		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
 		winText.text = "";
+
+		// DEBUG
+		// Obtenemos el componente AudioSource del player
+		playerAudio = GetComponent<AudioSource>();
+		// FIN DEBUG
 	}
 
 	private void Update() {
@@ -64,6 +74,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown("Jump") && Mathf.Abs(rb.velocity.y) < 0.1f) {
 			// Generamos la acción de salto
 			rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+
+			playerAudio.clip = jumpAudio;
+			playerAudio.Play();
 		}
 	}
 
@@ -93,12 +106,21 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 
 			// DEBUG
-			Debug.Log(GetComponent<AudioSource>());
-
+			//Debug.Log(GetComponents<AudioSource>());
+			//Component[] componentesAudioSource;
+			//componentesAudioSource = GetComponents<AudioSource>();
+			// Debug.Log("Primer componente: " + componentesAudioSource[0].GetComponent<AudioSource>().clip);
+			// Debug.Log("Segundo componente: " + componentesAudioSource[1].GetComponent<AudioSource>().clip);
+			// Debug.Log(playerAudio);
+			// Debug.Log(playerAudio.name);
+			// Debug.Log("Clip: " + playerAudio.clip);
+			//playerAudio.clip = "Jump-SoundBible.com";
 			// FIN DEBUG
 
 			// Reproducimos sonido al recoger Pick Up
-			GetComponent<AudioSource>().Play();
+			//GetComponent<AudioSource>().Play();
+			playerAudio.clip = pickUpAudio;
+			playerAudio.Play();
 
 			// Add one to the score variable 'count'
 			count = count + 1;
@@ -189,8 +211,8 @@ public class PlayerController : MonoBehaviour {
 			wallScale = paredGolpeada.transform.localScale;
 
 			// DEBUG
-			Debug.Log("Escala de la pared golpeada: " + wallScale);
-			Debug.Log("Posición de pared golpeada: " + wallPosition);
+			//Debug.Log("Escala de la pared golpeada: " + wallScale);
+			//Debug.Log("Posición de pared golpeada: " + wallPosition);
 			// FIN DEBUG
 
 			// Comprobamos que la escala y no sea negativo, lo dejamos a uno como máximo
