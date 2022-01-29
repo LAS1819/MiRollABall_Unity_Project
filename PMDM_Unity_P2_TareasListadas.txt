@@ -3,7 +3,7 @@
 ###############################################
 
 LISTA DE TAREAS PARA REALIZAR
------------------------------
+-------------------------------------------------------------
 ---------------
 -> POR HACER <-
 ---------------
@@ -12,20 +12,21 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [] - Realizar comentarios en el código (nombre en parte superior de cada script también)
 
 	-TAREAS PERSONALES-
-		-> [] - Añadir plataformas por las que poder escalar con la bola y situar pickups en estos sitios difíciles de acceder
+		
 		-> [] - Hacer plataformas trampolín que den impulso a la bola del jugador, con esto podemos poner pickups que sólo se puedan coger con el 'trampolín'
 		-> [] - Dar impulsos a algunas de las paredes repartidas por el escenario
-		-> [] - Situar correctamente la base de las paredes. Ahora sobresalen demasiado por bajo.
-
+		-> [] - Dar movimiento al foco de luz para que simule el movimiento del sol. Habría un momento en que fuera de noche y la luz sería ténue (crear otro foco de luz ténue para la luna)
+		-> [] - Hacer que los PickUp tengan luz propia.
+		
+		
+----------------------------------------------------------------
 ----------------
 -> REALIZANDO <-
 ----------------
-	-TAREAS PRÁCTICA-
-		-> [] - Activar un sistema de partículas (tipo explosión) al chocar con la pared o al recoger pickups
-			--> Explosiones distintas
+	
 
 	-TAREAS PERSONALES-
-
+----------------------------------------------------------------
 ----------------
 -> FINALIZADO <-
 ----------------
@@ -39,10 +40,16 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [X] - Hacer que los Pick-Ups giren cada uno de manera aleatoria y diferente entre ellos
 			--> El giro se mantendrá constante durante toda la partida
 		-> [X] - Hacer que los Pick-Ups cambien de color aleatoriamente cada cierto tiempo.
+		-TAREAS PRÁCTICA-
+		-> [X] - Activar un sistema de partículas (tipo explosión) al chocar con la pared o al recoger pickups
+			--> Explosiones distintas
 
 	-TAREAS PERSONALES-
-
----------------------------------------------------------------------------------------------------------------------
+		-> [X] - Añadir plataformas por las que poder escalar con la bola y situar pickups en estos sitios difíciles de acceder
+		-> [X] - Situar correctamente la base de las paredes. Ahora sobresalen demasiado por debajo del suelo.
+		-> [X] - Añadir texturas de césped y ladrillos para el suelo y las paredes respectivamente.
+---------------------------------------------------------------------------
+###########################################################################
 
 MODO DE ENTREGA DE PROYECTO
 ---------------------------
@@ -53,3 +60,5 @@ del proyecto Unity comprimido.
 ¡Excluir carpetas Build, Library y Temp en el archivo comprimido!
 
 ¡Además, entregar vídeo demostrando la ejecución del juego!
+
+--------------------------------------------------------------------------------

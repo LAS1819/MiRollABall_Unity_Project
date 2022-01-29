@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 wallScale;
 	// Variable para obtener la posición de la pared golpeada
 	private Vector3 wallPosition;
+
+	// Atributo para la explosión accesible desde el editor
+	[SerializeField] Transform prefabWallExplosion;
 	
 
 	// At the start of the game..
@@ -129,10 +132,19 @@ public class PlayerController : MonoBehaviour {
 			// Obtenemos el objeto de la pared golpeada
 			paredGolpeada = collision.gameObject;
 
+			// Instanciamos explosión
+			// Subimos la posición del objeto para que parezca que viene de la pared
+			Transform explosion = Instantiate(prefabWallExplosion,
+								            new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
+											Quaternion.identity);
+
+			// Destruimos la explosión pasado un segundo
+			Destroy(explosion.gameObject, 1f);
+
 			// DEBUG
-			Debug.Log("Pared golpeada");
-			Debug.Log(paredGolpeada);
-			Debug.Log(paredGolpeada.name);
+			//Debug.Log("Pared golpeada");
+			//Debug.Log(paredGolpeada);
+			//Debug.Log(paredGolpeada.name);
 			// FIN DEBUG
 
 			// Comprobamos mediante el nombre del objeto, qué pared ha sido golpeada
