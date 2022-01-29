@@ -93,7 +93,7 @@ public class Rotator : MonoBehaviour {
 		// Si la colisión se produce con el jugador
 		if (other.tag == "Player") {
 			// DEBUG
-			Debug.Log("Pick Up recogido: " + gameObject.name);
+			// Debug.Log("Pick Up recogido: " + gameObject.name);
 			// FIN DEBUG
 
 			// Instanciamos la explosión

@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Atributo para la explosión accesible desde el editor
 	[SerializeField] Transform prefabWallExplosion;
+
+
+	// DEBUG
+	// FIN DEBUG
 	
 
 	// At the start of the game..
@@ -87,6 +91,14 @@ public class PlayerController : MonoBehaviour {
 		{
 			// Make the other game object (the pick up) inactive, to make it disappear
 			other.gameObject.SetActive (false);
+
+			// DEBUG
+			Debug.Log(GetComponent<AudioSource>());
+
+			// FIN DEBUG
+
+			// Reproducimos sonido al recoger Pick Up
+			GetComponent<AudioSource>().Play();
 
 			// Add one to the score variable 'count'
 			count = count + 1;
