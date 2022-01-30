@@ -12,7 +12,6 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [] - Realizar comentarios en el código (nombre en parte superior de cada script también)
 
 	-TAREAS PERSONALES-
-		
 		-> [] - Hacer plataformas trampolín que den impulso a la bola del jugador, con esto podemos poner pickups que sólo se puedan coger con el 'trampolín'
 		-> [] - Dar impulsos a algunas de las paredes repartidas por el escenario
 		-> [] - Dar movimiento al foco de luz para que simule el movimiento del sol. Habría un momento en que fuera de noche y la luz sería ténue (crear otro foco de luz ténue para la luna)
@@ -25,13 +24,15 @@ LISTA DE TAREAS PARA REALIZAR
 ----------------
 -> REALIZANDO <-
 ----------------
+	-TAREAS PRÁCTICA-
 		-> [] - Añadir sondios básicos al juego
 			# [X] - Al recoger Pick Ups
 			# [X] - Música de fondo
-			# [] - Sonidos al colisionar contra las paredes
+			# [X] - Sonidos al colisionar contra las paredes
 			# [] - Música al terminar el juego al recoger los 12 pick ups
 			# [] - Música al caer por el precipicio (al aparecer la pantalla de juego terminado)
 			# [X] - Sonido al saltar
+			# [X] - Sondio del jugador al caer por precipicio
 
 	-TAREAS PERSONALES-
 ----------------------------------------------------------------

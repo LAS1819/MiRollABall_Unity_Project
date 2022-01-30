@@ -25,6 +25,12 @@ public class PlayerController : MonoBehaviour {
 
 	// Variable privada para guardar escala del player
 	private Vector3 playerScale;
+	// Variable privada para guardar la posición del jugador
+	private Vector3 playerPosition;
+	// Variable para guardar posición Y del jugador.
+	//private float playerPositionY;
+	// Booleano para saber si el jugador está cayendo
+	private bool playerFalling;
 	// Variable para obtener el objeto de la pared golpeada
 	private GameObject paredGolpeada;
 	// Variable privada para obtener la escala de la pared golpeada
@@ -35,14 +41,16 @@ public class PlayerController : MonoBehaviour {
 	// Atributo para la explosión accesible desde el editor
 	[SerializeField] Transform prefabWallExplosion;
 
-
-	// DEBUG
+	// -----------------------------------------
+	// SONIDOS
 	// Variable para obtener el componente de sonido
 	private AudioSource playerAudio;
 
-	public AudioClip jumpAudio;
-	public AudioClip pickUpAudio;
-	// FIN DEBUG
+	// Preparamos variables públicas para guardar los sonidos del jugador
+	public AudioClip jumpAudio; // Salto
+	public AudioClip pickUpAudio; // Recoger Pick Up
+	public AudioClip wallCrash; // Golpear la pared
+	public AudioClip playerFall; // Caída de jugador por precipicio
 	
 
 	// At the start of the game..
@@ -63,20 +71,45 @@ public class PlayerController : MonoBehaviour {
 		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
 		winText.text = "";
 
-		// DEBUG
 		// Obtenemos el componente AudioSource del player
 		playerAudio = GetComponent<AudioSource>();
-		// FIN DEBUG
+
+		// Damos valor falso al booleano que controla si el jugador está cayendo
+		playerFalling = false;
 	}
 
 	private void Update() {
+
+		// Guardamos posición Y del jugador
+		playerPosition = transform.position;
+
+		// DEBUG
+		Debug.Log("Posición del jugador: " + playerPosition);
+		Debug.Log("Posición Y del jugador: " + playerPosition.y);
+		// FIN DEBUG
+
 		// Si se pulsa el botón de saltar y no está ya en el aire
 		if (Input.GetButtonDown("Jump") && Mathf.Abs(rb.velocity.y) < 0.1f) {
 			// Generamos la acción de salto
 			rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
 
+			// Instanciamos el clip de audio del salto
 			playerAudio.clip = jumpAudio;
+			// Reproducimos sonido del salto
 			playerAudio.Play();
+		}
+
+		// Si el eje Y del jugador es menor a -1, lanzamos sonido de caída
+		// Lo lanzamos sólo una vez para que no haya un loop del sonido, esto lo conseguimos gracias al BOOL
+		if (playerPosition.y < -1f && playerFalling == false) {
+			// Instanciamos sonido de caída
+			playerAudio.clip = playerFall;
+			// Reproducimos sonido de caída
+			playerAudio.Play();
+
+			// Advertimos de que el jugador está ya cayendo
+			// Así no vuelve a entrar en esta condición
+			playerFalling = true;
 		}
 	}
 
@@ -119,7 +152,9 @@ public class PlayerController : MonoBehaviour {
 
 			// Reproducimos sonido al recoger Pick Up
 			//GetComponent<AudioSource>().Play();
+			// Instanciamos el clip de audio de recogida de PickUps
 			playerAudio.clip = pickUpAudio;
+			// Reproducimos el sonido
 			playerAudio.Play();
 
 			// Add one to the score variable 'count'
@@ -171,6 +206,11 @@ public class PlayerController : MonoBehaviour {
 			Transform explosion = Instantiate(prefabWallExplosion,
 								            new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
 											Quaternion.identity);
+
+			// Instanciamos el sonido para reproducir
+			playerAudio.clip = wallCrash;
+			// Reproducimos el sonido
+			playerAudio.Play();
 
 			// Destruimos la explosión pasado un segundo
 			Destroy(explosion.gameObject, 1f);
