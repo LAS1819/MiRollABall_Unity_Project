@@ -1,24 +1,18 @@
 // Lluís Aracil Sabater - PMDM DAM2 21/22 BLOQUE II UNITY P2
+
 using UnityEngine;
-
-// Include the namespace required to use Unity UI
-using UnityEngine.UI;
-
-// Incluye SceneManagement para reiniciar escena
-using UnityEngine.SceneManagement;
-
+using UnityEngine.UI; // Namespace required to use Unity UI
+using UnityEngine.SceneManagement; // Namespace SceneManagement para reiniciar escena
 using System.Collections;
 
+// Clase para el control del jugador
 public class PlayerController : MonoBehaviour {
-	
-	// Create public variables for player speed, and for the Text UI game objects
-	public float speed;
-	public Text countText;
+
+	// TEXTOS
+	public Text countText; // Texto para el contador de Pick Ups
 	public Text winText; // Texto al ganar juego
 	public Text looseText; // Texto al perder juego
-
-	// Variable pública para indicar la fuerza del salto
-	public float fuerzaSalto = 5;
+	public Text livesCountText; // Texto para mostrar las vidas
 
 	// Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
 	private Rigidbody rb;
@@ -27,21 +21,32 @@ public class PlayerController : MonoBehaviour {
 	// Miembro tipo Rederer para acceder al color del material
 	private Renderer r;
 
+	// JUGADOR
 	// Variable privada para guardar escala del player
 	private Vector3 playerScale;
 	// Variable privada para guardar la posición del jugador
 	private Vector3 playerPosition;
-	// Variable para guardar posición Y del jugador.
-	//private float playerPositionY;
+	// Variables para contener la posición inicial del jugador
+	private float initPlayerPositionX;
+	private float initPlayerPositionY;
 	// Booleano para saber si el jugador está cayendo
 	private bool playerFalling;
+	// Vidas del jugador
+	private int playerLives;
+	// Variable pública para indicar la fuerza del salto
+	public float fuerzaSalto = 5;
+	// Create public variables for player speed, and for the Text UI game objects
+	public float speed;
+
+	// PAREDES
 	// Variable para obtener el objeto de la pared golpeada
 	private GameObject paredGolpeada;
 	// Variable privada para obtener la escala de la pared golpeada
 	private Vector3 wallScale;
 	// Variable para obtener la posición de la pared golpeada
 	private Vector3 wallPosition;
-
+	// Variable para obtener el nombre de la escena actual
+	private string sceneName;
 	// Atributo para la explosión accesible desde el editor
 	[SerializeField] Transform prefabWallExplosion;
 
@@ -72,16 +77,27 @@ public class PlayerController : MonoBehaviour {
 		// Run the SetCountText function to update the UI (see below)
 		SetCountText ();
 
-		// Set the text property of our Win Text UI to an empty string, making the 'You Win' blank
+		// TEXTOS
+		// Inicializamos variables
 		winText.text = "";
-		// Configuramos propiedad de text de Game Over a una cadena vacía
 		looseText.text = "";
+		playerLives = 3;
+		livesCountText.text = "Vidas: " + playerLives.ToString();
+
 
 		// Obtenemos el componente AudioSource del player
 		playerAudio = GetComponent<AudioSource>();
 
 		// Damos valor falso al booleano que controla si el jugador está cayendo
 		playerFalling = false;
+
+		// Recogemos el nombre de la escena
+		sceneName = SceneManager.GetActiveScene().name;
+
+		// Recogemos la posición inicial del jugador
+		// Sólo necesitamos los ejes X e Y, ya que está en el centro
+		initPlayerPositionX = transform.position.x;
+		initPlayerPositionY = transform.position.y;
 	}
 
 	private void Update() {
@@ -117,28 +133,36 @@ public class PlayerController : MonoBehaviour {
 			// Así no vuelve a entrar en esta condición
 			playerFalling = true;
 
-			// Añadimos texto a 'looseText'
-			looseText.text = "Game over!";
+			
+		}
 
-			if (playerPosition.y < -30f) {
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			}
+		// Cuando el jugador sobrepase los 30 negativos en eje y
+		if (playerPosition.y < -30f) {
+
+			// DEBUG
+			Debug.Log(sceneName);
+			// FIN DEBUG
+
+			// Llamamos a función para perder vida y reunicar jugador
+			PerderVidaYReubicar();
 		}
 	}
 
 	// Each physics step..
 	void FixedUpdate ()
 	{
-		// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+		if (playerLives > 0) {
+			// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
+			float moveHorizontal = Input.GetAxis ("Horizontal");
+			float moveVertical = Input.GetAxis ("Vertical");
 
-		// Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+			// Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
+			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
-		// Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
-		// multiplying it by 'speed' - our public player speed that appears in the inspector
-		rb.AddForce (movement * speed);
+			// Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
+			// multiplying it by 'speed' - our public player speed that appears in the inspector
+			rb.AddForce (movement * speed);
+		}
 	}
 
 	// When this game object intersects a collider with 'is trigger' checked, 
@@ -200,6 +224,9 @@ public class PlayerController : MonoBehaviour {
 		{
 			// Set the text value of our 'winText'
 			winText.text = "You Win!";
+
+			// Invocamos a la función para reiniciar juego en 5 segundos
+			Invoke("resetGame", 5);
 		}
 	}
 
@@ -326,4 +353,43 @@ public class PlayerController : MonoBehaviour {
 		// 	}	
 		// }
 	}
+
+	// Función para reducir la vida del jugador
+	private void PerderVidaYReubicar() {
+		// DEBUG
+		Debug.Log("Una vida menos...");
+		// FIN DEBUG
+
+		// Quitamos una vida
+		playerLives--;
+		// Actualizamos texto con Vidas
+		livesCountText.text = "Vidas: " + playerLives.ToString();
+		// Si las vidas llegan a 0
+		if (playerLives == 0) {
+			// DEBUG
+			Debug.Log("Partida terminada...");
+			// FIN DEBUG
+			// Añadimos texto a 'looseText'
+			looseText.text = "Game over!";
+
+			// Invocamos a la función para reiniciar juego en 5 segundos
+			Invoke("resetGame", 5);
+
+		}
+
+		// Reubicamos al jugador
+		transform.position = new Vector3(initPlayerPositionX,
+										initPlayerPositionY,
+										0);
+		playerFalling = false;
+		rb.velocity = new Vector3(0, 0, 0);
+
+	}
+
+	// Función para reiniciar el juego
+	private void resetGame() {
+		// Reiniciamos el juego
+		SceneManager.LoadScene(sceneName);
+	}
+
 }

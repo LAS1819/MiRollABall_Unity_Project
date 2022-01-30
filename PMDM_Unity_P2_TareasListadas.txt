@@ -36,6 +36,7 @@ LISTA DE TAREAS PARA REALIZAR
 			# [X] - Sonido al saltar
 			# [X] - Sondio del jugador al caer por precipicio
 		-> [] - Terminar el juego cuando caiga por el precipicio (Cuando esté con valor negativo en eje Y)
+		-> [] - Añadir sistema de vidas.
 ----------------------------------------------------------------
 ----------------
 -> FINALIZADO <-
