@@ -58,6 +58,7 @@ LISTA DE TAREAS PARA REALIZAR
 		-> [X] - Añadir plataformas por las que poder escalar con la bola y situar pickups en estos sitios difíciles de acceder
 		-> [X] - Situar correctamente la base de las paredes. Ahora sobresalen demasiado por debajo del suelo.
 		-> [X] - Añadir texturas de césped y ladrillos para el suelo y las paredes respectivamente.
+		-> [X] - Añadir testo de Game Over cuando el jugador cae por precipicio
 ---------------------------------------------------------------------------
 ###########################################################################
 
