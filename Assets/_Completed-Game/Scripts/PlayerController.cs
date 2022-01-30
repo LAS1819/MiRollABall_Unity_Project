@@ -4,6 +4,9 @@ using UnityEngine;
 // Include the namespace required to use Unity UI
 using UnityEngine.UI;
 
+// Incluye SceneManagement para reiniciar escena
+using UnityEngine.SceneManagement;
+
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -87,8 +90,8 @@ public class PlayerController : MonoBehaviour {
 		playerPosition = transform.position;
 
 		// DEBUG
-		Debug.Log("Posición del jugador: " + playerPosition);
-		Debug.Log("Posición Y del jugador: " + playerPosition.y);
+		//Debug.Log("Posición del jugador: " + playerPosition);
+		//Debug.Log("Posición Y del jugador: " + playerPosition.y);
 		// FIN DEBUG
 
 		// Si se pulsa el botón de saltar y no está ya en el aire
@@ -114,8 +117,12 @@ public class PlayerController : MonoBehaviour {
 			// Así no vuelve a entrar en esta condición
 			playerFalling = true;
 
-			// Set the text value of our 'looseText'
+			// Añadimos texto a 'looseText'
 			looseText.text = "Game over!";
+
+			if (playerPosition.y < -30f) {
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
 		}
 	}
 
