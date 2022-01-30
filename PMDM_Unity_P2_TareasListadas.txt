@@ -8,8 +8,7 @@ LISTA DE TAREAS PARA REALIZAR
 -> POR HACER <-
 ---------------
 	-TAREAS PRÁCTICA-
-		-> [] - Añadir cosas que se nos ocurran
-		-> [] - Realizar comentarios en el código (nombre en parte superior de cada script también)
+		
 
 	-TAREAS PERSONALES-
 		-> [] - Hacer plataformas trampolín que den impulso a la bola del jugador, con esto podemos poner pickups que sólo se puedan coger con el 'trampolín'
@@ -27,16 +26,7 @@ LISTA DE TAREAS PARA REALIZAR
 		
 
 	-TAREAS PERSONALES-
-		-> [] - Añadir sondios básicos al juego
-			# [X] - Al recoger Pick Ups
-			# [X] - Música de fondo
-			# [X] - Sonidos al colisionar contra las paredes
-			# [] - Música al terminar el juego al recoger los 12 pick ups
-			# [] - Música al caer por el precipicio (al aparecer la pantalla de juego terminado)
-			# [X] - Sonido al saltar
-			# [X] - Sondio del jugador al caer por precipicio
-		-> [] - Terminar el juego cuando caiga por el precipicio (Cuando esté con valor negativo en eje Y)
-		-> [] - Añadir sistema de vidas.
+		
 ----------------------------------------------------------------
 ----------------
 -> FINALIZADO <-
@@ -54,12 +44,24 @@ LISTA DE TAREAS PARA REALIZAR
 		-TAREAS PRÁCTICA-
 		-> [X] - Activar un sistema de partículas (tipo explosión) al chocar con la pared o al recoger pickups
 			--> Explosiones distintas
+		-> [] - Añadir cosas que se nos ocurran
+		-> [] - Realizar comentarios en el código (nombre en parte superior de cada script también)
 
 	-TAREAS PERSONALES-
 		-> [X] - Añadir plataformas por las que poder escalar con la bola y situar pickups en estos sitios difíciles de acceder
 		-> [X] - Situar correctamente la base de las paredes. Ahora sobresalen demasiado por debajo del suelo.
 		-> [X] - Añadir texturas de césped y ladrillos para el suelo y las paredes respectivamente.
 		-> [X] - Añadir texto de Game Over cuando el jugador cae por precipicio
+		-> [X] - Añadir sondios básicos al juego
+			# [X] - Al recoger Pick Ups
+			# [X] - Música de fondo
+			# [X] - Sonidos al colisionar contra las paredes
+			# [] - Música al terminar el juego al recoger los 12 pick ups
+			# [] - Música al caer por el precipicio (al aparecer la pantalla de juego terminado)
+			# [X] - Sonido al saltar
+			# [X] - Sondio del jugador al caer por precipicio
+		-> [X] - Terminar el juego cuando caiga por el precipicio (Cuando esté con valor negativo en eje Y)
+		-> [X] - Añadir sistema de vidas.
 ---------------------------------------------------------------------------
 ###########################################################################
 

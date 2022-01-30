@@ -67,13 +67,10 @@ public class PlayerController : MonoBehaviour {
 	{
 		// Assign the Rigidbody component to our private rb variable
 		rb = GetComponent<Rigidbody>();
-
 		// Obtenemos el componente Renderer y asignamos a variable privada 'r'
 		r = GetComponent<Renderer>();
-
 		// Set the count to zero 
 		count = 0;
-
 		// Run the SetCountText function to update the UI (see below)
 		SetCountText ();
 
@@ -102,7 +99,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Update() {
 
-		// Guardamos posición Y del jugador
+		// Guardamos posición del jugador en cada momento
 		playerPosition = transform.position;
 
 		// DEBUG
@@ -130,20 +127,13 @@ public class PlayerController : MonoBehaviour {
 			playerAudio.Play();
 
 			// Advertimos de que el jugador está ya cayendo
-			// Así no vuelve a entrar en esta condición
+			// Así no vuelve a entrar en esta condición en cada frame hasta que vuelva a estar en el suelo
 			playerFalling = true;
-
-			
 		}
 
 		// Cuando el jugador sobrepase los 30 negativos en eje y
 		if (playerPosition.y < -30f) {
-
-			// DEBUG
-			Debug.Log(sceneName);
-			// FIN DEBUG
-
-			// Llamamos a función para perder vida y reunicar jugador
+			// Llamamos a función para perder vida y reubicar jugador
 			PerderVidaYReubicar();
 		}
 	}
@@ -151,6 +141,7 @@ public class PlayerController : MonoBehaviour {
 	// Each physics step..
 	void FixedUpdate ()
 	{
+		// Mientras el jugador tenga vidas, dejamos que el jugador se mueva
 		if (playerLives > 0) {
 			// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
 			float moveHorizontal = Input.GetAxis ("Horizontal");
@@ -175,20 +166,7 @@ public class PlayerController : MonoBehaviour {
 			// Make the other game object (the pick up) inactive, to make it disappear
 			other.gameObject.SetActive (false);
 
-			// DEBUG
-			//Debug.Log(GetComponents<AudioSource>());
-			//Component[] componentesAudioSource;
-			//componentesAudioSource = GetComponents<AudioSource>();
-			// Debug.Log("Primer componente: " + componentesAudioSource[0].GetComponent<AudioSource>().clip);
-			// Debug.Log("Segundo componente: " + componentesAudioSource[1].GetComponent<AudioSource>().clip);
-			// Debug.Log(playerAudio);
-			// Debug.Log(playerAudio.name);
-			// Debug.Log("Clip: " + playerAudio.clip);
-			//playerAudio.clip = "Jump-SoundBible.com";
-			// FIN DEBUG
-
 			// Reproducimos sonido al recoger Pick Up
-			//GetComponent<AudioSource>().Play();
 			// Instanciamos el clip de audio de recogida de PickUps
 			playerAudio.clip = pickUpAudio;
 			// Reproducimos el sonido
@@ -208,8 +186,6 @@ public class PlayerController : MonoBehaviour {
 				// Aumentamos la escala de la bola en 0.1 en todos sus vectores
 				transform.localScale = new Vector3(playerScale.x + 0.1f, playerScale.y + 0.1f, playerScale.z + 0.1f);
 			}
-
-
 		}
 	}
 
@@ -224,7 +200,6 @@ public class PlayerController : MonoBehaviour {
 		{
 			// Set the text value of our 'winText'
 			winText.text = "You Win!";
-
 			// Invocamos a la función para reiniciar juego en 5 segundos
 			Invoke("resetGame", 5);
 		}
@@ -235,14 +210,13 @@ public class PlayerController : MonoBehaviour {
 		// Si la colisión se produce contra cualquiera de las paredes
 		if (collision.gameObject.CompareTag("Pared")) {
 			// Cambiamos el color de la bola a uno aleatorio
-			//r.material.color = new Color(Random.value, Random.value, Random.value);
 			r.material.color = new Color(Mathf.Round(Random.value), Mathf.Round(Random.value), Mathf.Round(Random.value));
 
 			// Obtenemos el objeto de la pared golpeada
 			paredGolpeada = collision.gameObject;
 
 			// Instanciamos explosión
-			// Subimos la posición del objeto para que parezca que viene de la pared
+			// Subimos la posición del objeto para que parezca que cae de la pared
 			Transform explosion = Instantiate(prefabWallExplosion,
 								            new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
 											Quaternion.identity);
@@ -254,12 +228,6 @@ public class PlayerController : MonoBehaviour {
 
 			// Destruimos la explosión pasado un segundo
 			Destroy(explosion.gameObject, 1f);
-
-			// DEBUG
-			//Debug.Log("Pared golpeada");
-			//Debug.Log(paredGolpeada);
-			//Debug.Log(paredGolpeada.name);
-			// FIN DEBUG
 
 			// Comprobamos mediante el nombre del objeto, qué pared ha sido golpeada
 			// De esta manera evitamos usar 4 etiquetas de pared y dejamos la ya creada "Pared"
@@ -297,67 +265,17 @@ public class PlayerController : MonoBehaviour {
 
 			// Comprobamos que la escala y no sea negativo, lo dejamos a uno como máximo
 			if (wallScale.y > 1) {
-				// Disminuimos altura de la pared y reposicionamos pared
+				// Disminuimos altura de la pared y reposicionamos pared para que la base siempre quede correctamente
 				paredGolpeada.transform.localScale = new Vector3(wallScale.x, wallScale.y - 1, wallScale.z);
 				paredGolpeada.transform.position = new Vector3(wallPosition.x, wallPosition.y - 0.5f, wallPosition.z);
 			}
 		}
-
-		// Si la colisión se produce en la pared Norte o Sur
-		// if (collision.gameObject.CompareTag("ParedNorte") || collision.gameObject.CompareTag("ParedSur")) {
-		// 	// Reducimos tamaño del jugador
-		// 	// Primero obtenemos la escala actual del objeto Bola mediante 'localScale'
-		// 	playerScale = transform.localScale;
-		// 	// Como reducimos todos sus vectores por igual, antes comprobamos que la bola sea mayor a 1
-		// 	if (playerScale.x > 0.2f) {
-		// 		// Reducimos la escala de la bola 0.1 en todos sus vectores
-		// 		transform.localScale = new Vector3(playerScale.x - 0.1f, playerScale.y - 0.1f, playerScale.z - 0.1f);	
-		// 	}
-		// }
-
-		// Si la colisión de produce en las pareder Este u Oeste
-		// if (collision.gameObject.CompareTag("ParedEste") || collision.gameObject.CompareTag("ParedOeste")) {
-		// 	// Aumentamos el tamaño del jugador
-		// 	playerScale = transform.localScale;
-		// 	if (playerScale.x < 2) {
-		// 		// Aumentamos la escala de la bola en 0.1 en todos sus vectores
-		// 		transform.localScale = new Vector3(playerScale.x + 0.1f, playerScale.y + 0.1f, playerScale.z + 0.1f);
-		// 	}
-		// }
-
-		// Si la colisión se produce en la pared Norte
-		// if (collision.gameObject.CompareTag("ParedNorte")) {
-
-		// 	paredGolpeada = collision.gameObject;
-
-		// 	// DEBUG
-		// 	Debug.Log("Pared Norte golpeada");
-		// 	Debug.Log(paredGolpeada);
-		// 	Debug.Log(paredGolpeada.name);
-		// 	// FIN DEBUG
-
-		// 	// Obtenemos posición y escala de la pared golpeada
-		// 	wallPosition = paredGolpeada.transform.position;
-		// 	wallScale = paredGolpeada.transform.localScale;
-
-		// 	// DEBUG
-		// 	Debug.Log("Escala de la pared golpeada: " + wallScale);
-		// 	Debug.Log("Posición de pared golpeada: " + wallPosition);
-		// 	// FIN DEBUG
-
-		// 	// Comprobamos que la escala y no sea negativo, lo dejamos a uno como máximo
-		// 	if (wallScale.y > 1) {
-		// 		// Disminuimos altura de la pared y reposicionamos pared
-		// 		paredGolpeada.transform.localScale = new Vector3(wallScale.x, wallScale.y - 1, wallScale.z);
-		// 		paredGolpeada.transform.position = new Vector3(wallPosition.x, wallPosition.y - 0.5f, wallPosition.z);
-		// 	}	
-		// }
 	}
 
 	// Función para reducir la vida del jugador
 	private void PerderVidaYReubicar() {
 		// DEBUG
-		Debug.Log("Una vida menos...");
+		//Debug.Log("Una vida menos...");
 		// FIN DEBUG
 
 		// Quitamos una vida
@@ -367,14 +285,13 @@ public class PlayerController : MonoBehaviour {
 		// Si las vidas llegan a 0
 		if (playerLives == 0) {
 			// DEBUG
-			Debug.Log("Partida terminada...");
+			//Debug.Log("Partida terminada...");
 			// FIN DEBUG
+
 			// Añadimos texto a 'looseText'
 			looseText.text = "Game over!";
-
 			// Invocamos a la función para reiniciar juego en 5 segundos
 			Invoke("resetGame", 5);
-
 		}
 
 		// Reubicamos al jugador
